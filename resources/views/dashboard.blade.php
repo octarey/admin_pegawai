@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Kapella Bootstrap Admin Dashboard Template</title>
+  <title>Data Pegawai - Home</title>
   <!-- base:css -->
   <link rel="stylesheet" href="{{asset('template/vendors/mdi/css/materialdesignicons.min.css')}}">
   <link rel="stylesheet" href="{{asset('template/vendors/base/vendor.bundle.base.css')}}">
@@ -163,9 +163,9 @@
                           <td>{{$item->position}}</td>
                           <td>{{$item->division}}</td>
                           <td>
-                            <button type="button" class="btn btn-success btn-sm">
+                            <a href="{{route('employes.edit',$item->id)}}"><button type="button" class="btn btn-success btn-sm">
                               <i class="mdi mdi-pencil btn-icon-append"></i>                               </button>
-                            
+                            </a>
                             <form action="{{route('employes.destroy', [$item->id])}}" method="POST" onsubmit="return confirm('Hapus Data Pegawai Ini?')" class="d-inline">
                               @csrf
                               <input type="hidden" name="_method" value="DELETE">

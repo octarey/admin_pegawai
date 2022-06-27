@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Data Pegawai - Tambah Data Pegawai</title>
+  <title>Data Pegawai - Edit Data Pegawai</title>
   <!-- base:css -->
   <link rel="stylesheet" href="{{asset('template/vendors/mdi/css/materialdesignicons.min.css')}}">
   <link rel="stylesheet" href="{{asset('template/vendors/base/vendor.bundle.base.css')}}">
@@ -103,7 +103,7 @@
                     <div class="d-lg-flex align-items-center">
                       <div>
                         <h3 class="text-dark font-weight-bold mb-2">Data Pegawai</h3>
-                        <h6 class="font-weight-normal mb-2">Halaman Tambah Data Pegawai RS.MITRA</h6>
+                        <h6 class="font-weight-normal mb-2">Halaman Edit Data Pegawai RS.MITRA</h6>
                       </div>
                     </div>
                   </div>
@@ -114,61 +114,64 @@
                         {{session('status')}}
                       </div>
                   @endif
-                  <form class="forms-sample" action="{{route('employes.store')}}" method="POST" enctype="multipart/form-data" >
-                    @csrf
-                    <div class="form-group row">
-                      <label  class="col-sm-3 col-form-label">Nama</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="name" class="form-control" placeholder="Nama Pegawai">
+                    <form class="forms-sample" action="{{route('employes.update',$employee->id)}}" method="POST" enctype="multipart/form-data" >
+                      @csrf
+                      <input type="hidden" name="_method" value="PUT">
+                      <div class="form-group row">
+                        <label  class="col-sm-3 col-form-label">Nama</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="name" class="form-control" value="{{$employee->name}}" placeholder="Nama Pegawai">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label  class="col-sm-3 col-form-label">NIP</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="nib" class="form-control" placeholder="Nomor Induk Pegawai">
+                      <div class="form-group row">
+                        <label  class="col-sm-3 col-form-label">NIP</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="nib" class="form-control" value="{{$employee->nib}}" placeholder="Nomor Induk Pegawai">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label  class="col-sm-3 col-form-label">Jabatan</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="jabatan" class="form-control" placeholder="Jabatan Pegawai">
+                      <div class="form-group row">
+                        <label  class="col-sm-3 col-form-label">Jabatan</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="jabatan" class="form-control"value="{{$employee->position}}" placeholder="Jabatan Pegawai">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label  class="col-sm-3 col-form-label">Divisi</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="divisi" class="form-control" placeholder="Jabatan Pegawai">
+                      <div class="form-group row">
+                        <label  class="col-sm-3 col-form-label">Divisi</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="divisi" class="form-control" value="{{$employee->division}}" placeholder="Jabatan Pegawai">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label  class="col-sm-3 col-form-label">Sub Divisi/Kelas</label>
-                      <div class="col-sm-5">
-                        <input type="text" name="rumpun" class="form-control" placeholder="Rumpun">
+                      <div class="form-group row">
+                        <label  class="col-sm-3 col-form-label">Sub Divisi/Kelas</label>
+                        <div class="col-sm-5">
+                          <input type="text" name="rumpun" class="form-control" value="{{$employee->clan}}" placeholder="Rumpun">
+                        </div><div class="col-sm-1">
+                          <label  class="col-form-label">Kelas</label>
+                        </div>
+                        <div class="col-sm-3">
+                          <input type="text" name="kelas" class="form-control" value="{{$employee->class}}" placeholder="Kelas">
+                        </div>
                       </div>
-                      <div class="col-sm-4">
-                        <input type="text" name="kelas" class="form-control" placeholder="Kelas">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Jenis Pegawai</label>
+                        <div class="col-sm-9">
+                          <select name="jenis" style="margin-top:10px;padding:5px" class="from-control js-example-basic-single w-100 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                            <option>--- Status Pegawai ---</option>
+                            <option value="CPNS" {{ $employee->type == "CPNS" ? 'selected' : '' }}>CPNS</option>
+                            <option value="PNS" {{ $employee->type == "PNS" ? 'selected' : '' }}>PNS</option>
+                            <option value="PNSD" {{ $employee->type == "PNSD" ? 'selected' : '' }}>PNSD</option>
+                            <option value="P&K" {{ $employee->type == "P&K" ? 'selected' : '' }}>P&K</option>
+                            <option value="HR" {{ $employee->type == "HR" ? 'selected' : '' }}>HR</option>
+                            <option value="PPPK" {{ $employee->type == "PPPK" ? 'selected' : '' }}>PPPK</option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Jenis Pegawai</label>
-                      <div class="col-sm-9" data-select2-id="7">
-                        <select name="jenis" style="margin-top:10px;padding:5px" class="from-control js-example-basic-single w-100 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                          <option value="CPNS" data-select2-id="3">--- Status Pegawai ---</option>
-                          <option value="CPNS" data-select2-id="3">CPNS</option>
-                          <option value="PNS" data-select2-id="17">PNS</option>
-                          <option value="PNSD" data-select2-id="18">PNSD</option>
-                          <option value="P&K" data-select2-id="19">P&K</option>
-                          <option value="HR" data-select2-id="20">HR</option>
-                          <option value="PPPK" data-select2-id="20">PPPK</option>
-                        </select>
+                      <div class="d-flex align-items-center justify-content-md-end">
+                        <div class="pe-1 mb-3 mb-xl-0">
+                          <button type="submit" class="btn btn-primary me-2">SIMPAN DATA PEGAWAI</button>
+                        </div>
                       </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-md-end">
-                      <div class="pe-1 mb-3 mb-xl-0">
-                        <button type="submit" class="btn btn-primary me-2">SIMPAN DATA PEGAWAI</button>
-                      </div>
-                    </div>
-                  </form>
+                    </form>
                   </div>
                 </div>
               </div>

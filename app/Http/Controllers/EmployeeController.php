@@ -56,7 +56,7 @@ class EmployeeController extends Controller
         $employee->type = $request->get('jenis');
 
         $employee->save();
-        return redirect()->route('employes.create')->with('status','Data Pegawai Berhasi Disimpan');
+        return redirect()->route('employes.create')->with('status','Data Pegawai Berhasil Disimpan');
     }
 
     /**
@@ -78,7 +78,8 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        return view('edit',['employee' => $employee]);
     }
 
     /**
@@ -90,7 +91,29 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+
+        \Validator::make($request->all(),[
+            'name' => 'required',
+            'nib' => 'required',
+            'jabatan' => 'required',
+            'divisi' => 'required',
+            'kelas' => 'required',
+            'rumpun' => 'required',
+            'jenis' => 'required'
+        ])->validate();
+        
+        $employee->name = $request->get('name');
+        $employee->nib = $request->get('nib');
+        $employee->position = $request->get('jabatan');
+        $employee->division = $request->get('divisi');
+        $employee->class = $request->get('kelas');
+        $employee->clan = $request->get('rumpun');
+        $employee->type = $request->get('jenis');
+
+        $employee->save();
+
+        return redirect()->route('employes.index')->with('status','Data Pegawai Berhasil Disimpan');
     }
 
     /**
