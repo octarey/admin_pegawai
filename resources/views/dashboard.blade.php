@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="{{ asset('/template/css/style.css')}}">
   <!-- endinject -->
   <link rel="stylesheet" href="{{asset('/template/images/favicon.png')}}">
-  <style>
+  {{-- <style>
     .css-serial {
       counter-reset: serial-number;  /* Atur penomoran ke 0 */
     }
@@ -24,7 +24,7 @@
       counter-increment: serial-number;  /* Kenaikan penomoran */
       content: counter(serial-number);  /* Tampilan counter */
     }
-  </style>
+  </style> --}}
 </head>
 
 <body>
@@ -56,7 +56,7 @@
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-                    <span class="nav-profile-name">Admin</span>
+                    <span class="nav-profile-name">{{ Auth::user()->name }}</span>
                     <span class="online-status"></span>
                     <img src="{{asset('/template/images/faces/face28.png')}}" alt="profile"/>
                   </a>
@@ -65,10 +65,13 @@
                         <i class="mdi mdi-settings text-primary"></i>
                         Settings
                       </a>
-                      <a class="dropdown-item">
-                        <i class="mdi mdi-logout text-primary"></i>
-                        Logout
-                      </a>
+                      <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item">
+                            <i class="mdi mdi-logout text-primary"></i>
+                            Logout
+                        </button>
+                      </form>
                   </div>
                 </li>
             </ul>
@@ -157,7 +160,7 @@
                       <tbody>
                         @foreach ($employes as $item)
                         <tr>
-                          <td></td>
+                          <td>{{ ($employes->currentPage() - 1)  * $employes->links()->paginator->perPage() + $loop->iteration }}</td>
                           <td>{{$item->name}}</td>
                           <td>{{$item->nib}}</td>
                           <td>{{$item->position}}</td>

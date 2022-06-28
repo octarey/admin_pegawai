@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\EmployeeController;
-use App\Http\Resources\EmployeeResources;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [EmployeeController::class, 'index']);
+Route::get('/', function () {
+    return view('auth.login');
+});
 
-Route::resource("employes", EmployeeController::class);
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+Route::resource("employes", EmployeeController::class)->middleware(['auth']);
